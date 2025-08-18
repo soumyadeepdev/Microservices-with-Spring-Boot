@@ -52,6 +52,18 @@ public class AccountsController {
                     .body(new ResponseDto(AccountsConstants.STATUS_417, AccountsConstants.MESSAGE_417_UPDATE));
         }
     }
+    @DeleteMapping("/delete")
+    public ResponseEntity<ResponseDto> deleteCustomer(@RequestParam String mobileNumber){
+        boolean isDeleted = accountService.deleteAccount(mobileNumber);
+        if(!isDeleted) {
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(new ResponseDto(AccountsConstants.STATUS_500, AccountsConstants.MESSAGE_500));
+        }
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(new ResponseDto(AccountsConstants.STATUS_200, AccountsConstants.MESSAGE_200));
+    }
 
 
 }
